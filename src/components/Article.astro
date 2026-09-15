@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+interface Props { title: string; date: Date; summary?: string; lang?: 'ko' | 'en'; kicker?: string; alternate?: string }
+const { title, date, summary = '', lang = 'ko', kicker, alternate } = Astro.props;
+const fmt = date.toLocaleDateString(lang === 'en' ? 'en-CA' : 'ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+---
+<Base title={title} description={summary} lang={lang} alternate={alternate} type="article">
+  <article>
+    <header>
+      {kicker && <div class="mono">{kicker}</div>}
+      <h1>{title}</h1>
+      <div class="meta">{fmt}</div>
+    </header>
+    <slot />
+  </article>
+</Base>

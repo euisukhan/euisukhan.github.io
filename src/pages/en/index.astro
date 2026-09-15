@@ -1,0 +1,20 @@
+---
+import Base from '../../layouts/Base.astro';
+import EntryList from '../../components/EntryList.astro';
+import { entries, hrefFor } from '../../lib/content';
+const essays = (await entries('essays', 'en')).slice(0, 3);
+const research = (await entries('research', 'en')).slice(0, 3);
+const tools = await entries('tools', 'en');
+const music = (await entries('music', 'en')).slice(0, 3);
+---
+<Base lang="en" description="Independent research on cognition, music, and the tools built along the way." alternate="/">
+  <section class="hero">
+    <div class="mono">Euisuk Han</div>
+    <h1>Treating thoughts and memories as if they had shape</h1>
+    <p>Independent cognitive-science research, composition and performance, and the tools I built for my own use along the way. Byproducts of the work, left as they are.</p>
+  </section>
+  <h2><a href="/en/essays/">Essays</a></h2><EntryList items={essays} href={(i) => hrefFor('essays', i)} lang="en" />
+  <h2><a href="/en/research/">Research</a></h2><EntryList items={research} href={(i) => hrefFor('research', i)} lang="en" badge={(i: any) => i.data.kind} />
+  <h2><a href="/en/tools/">Tools</a></h2><EntryList items={tools} href={(i) => hrefFor('tools', i)} lang="en" badge={(i: any) => i.data.status} />
+  <h2><a href="/en/music/">Music</a></h2><EntryList items={music} href={(i) => hrefFor('music', i)} lang="en" />
+</Base>

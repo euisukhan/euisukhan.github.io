@@ -1,0 +1,17 @@
+---
+interface Props { user: string; domain: string }
+const { user, domain } = Astro.props;
+---
+<a class="mail" href="#" data-u={user} data-d={domain}>
+  {user} <span aria-hidden="true">[at]</span> {domain}
+</a>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('a.mail').forEach((a) => {
+    const { u, d } = a.dataset;
+    if (!u || !d) return;
+    const addr = u + String.fromCharCode(64) + d;
+    a.href = 'mailto:' + addr;
+    a.textContent = addr;
+  });
+</script>

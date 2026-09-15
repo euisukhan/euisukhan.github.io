@@ -1,0 +1,16 @@
+---
+import { render } from 'astro:content';
+import Article from '../../../components/Article.astro';
+import Youtube from '../../../components/Youtube.astro';
+import { entries, counterpart, hrefFor, slugOf } from '../../../lib/content';
+export async function getStaticPaths() {
+  const list = await entries('music', 'en');
+  return Promise.all(list.map(async (entry) => ({ params: { id: slugOf(entry.id) }, props: { entry, alt: await counterpart('music', entry) } })));
+}
+const { entry, alt } = Astro.props;
+const { Content } = await render(entry);
+---
+<Article title={entry.data.title} date={entry.data.date} summary={entry.data.summary} lang="en" kicker={entry.data.instruments.length ? `Music · ${entry.data.instruments.join(', ')}` : 'Music'} alternate={alt ? hrefFor('music', alt) : undefined}>
+  {entry.data.youtubeId && <Youtube id={entry.data.youtubeId} title={entry.data.title} />}
+  <Content />
+</Article>

@@ -1,0 +1,11 @@
+---
+import Base from '../../../layouts/Base.astro';
+import EntryList from '../../../components/EntryList.astro';
+import { entries, hrefFor } from '../../../lib/content';
+const items = await entries('music', 'en');
+---
+<Base lang="en" title="Music" description="Performance, composition, and arrangement records." alternate="/music/">
+  <h1>Music</h1>
+  <p class="meta">Performance, composition, and arrangement records.</p>
+  <EntryList items={items} href={(i) => hrefFor('music', i)} lang="en" badge={undefined} />
+</Base>

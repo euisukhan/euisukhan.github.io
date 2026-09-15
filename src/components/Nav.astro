@@ -1,0 +1,19 @@
+---
+interface Props { lang?: 'ko' | 'en'; alternate?: string }
+const { lang = 'ko', alternate } = Astro.props;
+const path = Astro.url.pathname;
+const items = lang === 'en'
+  ? [['/en/essays/', 'Essays'], ['/en/research/', 'Research'], ['/en/tools/', 'Tools'], ['/en/music/', 'Music'], ['/en/about/', 'About']]
+  : [['/essays/', '에세이'], ['/research/', '연구'], ['/tools/', '도구'], ['/music/', '음악'], ['/about/', '소개']];
+const isCurrent = (href: string) => path.startsWith(href);
+const switchHref = alternate ?? (lang === 'en' ? '/' : '/en/');
+---
+<header class="site-header">
+  <div class="inner">
+    <a class="brand" href={lang === 'en' ? '/en/' : '/'}>Euisuk Han</a>
+    <nav aria-label="Primary">
+      {items.map(([href, label]) => <a href={href} aria-current={isCurrent(href) ? 'page' : undefined}>{label}</a>)}
+      <a href={switchHref} lang={lang === 'en' ? 'ko' : 'en'} title={lang === 'en' ? '한국어 페이지' : 'English page'}>{lang === 'en' ? '한국어' : 'EN'}</a>
+    </nav>
+  </div>
+</header>

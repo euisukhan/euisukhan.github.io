@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import EntryList from '../components/EntryList.astro';
+import { entries, hrefFor } from '../lib/content';
+const essays = (await entries('essays', 'ko')).slice(0, 3);
+const research = (await entries('research', 'ko')).slice(0, 3);
+const tools = await entries('tools', 'ko');
+const music = (await entries('music', 'ko')).slice(0, 3);
+---
+<Base description="연구, 음악, 그리고 그 과정에서 만든 도구를 기록합니다." alternate="/en/">
+  <section class="hero">
+    <div class="mono">Euisuk Han</div>
+    <h1>생각과 기억을 형태가 있는 것처럼 다루는 일</h1>
+    <p>인지과학 개인 연구, 작곡과 연주, 그리고 그 과정에서 스스로 쓰려고 만든 도구들의 기록입니다. 판매용 콘텐츠가 아니라 작업의 부산물을 그대로 둡니다.</p>
+  </section>
+  <h2><a href="/essays/">에세이</a></h2>
+  <EntryList items={essays} href={(i) => hrefFor('essays', i)} />
+  <h2><a href="/research/">연구</a></h2>
+  <EntryList items={research} href={(i) => hrefFor('research', i)} badge={(i: any) => i.data.kind} />
+  <h2><a href="/tools/">도구</a></h2>
+  <EntryList items={tools} href={(i) => hrefFor('tools', i)} badge={(i: any) => i.data.status} />
+  <h2><a href="/music/">음악</a></h2>
+  <EntryList items={music} href={(i) => hrefFor('music', i)} />
+</Base>

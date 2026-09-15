@@ -1,0 +1,11 @@
+---
+import Base from '../../../layouts/Base.astro';
+import EntryList from '../../../components/EntryList.astro';
+import { entries, hrefFor } from '../../../lib/content';
+const items = await entries('research', 'en');
+---
+<Base lang="en" title="Research" description="Protocols, preregistrations, preprints, and research notes." alternate="/research/">
+  <h1>Research</h1>
+  <p class="meta">Protocols, preregistrations, preprints, and research notes.</p>
+  <EntryList items={items} href={(i) => hrefFor('research', i)} lang="en" badge={(i: any) => i.data.kind} />
+</Base>

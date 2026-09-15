@@ -1,0 +1,18 @@
+---
+interface Item { id: string; data: { title: string; date: Date; summary?: string } }
+interface Props { items: Item[]; href: (item: Item) => string; lang?: 'ko' | 'en'; badge?: (item: Item) => string | undefined }
+const { items, href, lang = 'ko', badge } = Astro.props;
+const fmt = (d: Date) => d.toLocaleDateString(lang === 'en' ? 'en-CA' : 'ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+---
+{items.length === 0
+  ? <p class="meta">{lang === 'en' ? 'Nothing here yet.' : '아직 올린 글이 없습니다.'}</p>
+  : <ul class="entries">
+      {items.map((item) => (
+        <li>
+          <div class="meta">{fmt(item.data.date)}</div>
+          <a class="title" href={href(item)}>{item.data.title}</a>
+          {badge && badge(item) && <span class="badge">{badge(item)}</span>}
+          {item.data.summary && <p class="summary">{item.data.summary}</p>}
+        </li>
+      ))}
+    </ul>}
