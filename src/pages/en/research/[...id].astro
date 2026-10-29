@@ -9,7 +9,9 @@ export async function getStaticPaths() {
 const { entry, alt } = Astro.props;
 const { Content } = await render(entry);
 ---
-<Article title={entry.data.title} date={entry.data.date} summary={entry.data.summary} lang="en" kicker={`Research · ${entry.data.kind}`} alternate={alt ? hrefFor('research', alt) : undefined}>
+<Article title={entry.data.title} date={entry.data.date} summary={entry.data.summary} lang="en" kicker={`Research · ${entry.data.kind} · ${entry.data.stage}`} alternate={alt ? hrefFor('research', alt) : undefined}>
+  {entry.data.osf && <p class="meta"><a href={entry.data.osf}>Preregistration (OSF)</a></p>}
+  {entry.data.started && <p class="meta">Collection started: {entry.data.started.toISOString().slice(0, 10)}</p>}
   {entry.data.link && <p class="meta"><a href={entry.data.link}>External record (OSF / preprint)</a></p>}
   <Content />
 </Article>

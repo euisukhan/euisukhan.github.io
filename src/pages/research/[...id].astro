@@ -9,7 +9,9 @@ export async function getStaticPaths() {
 const { entry, alt } = Astro.props;
 const { Content } = await render(entry);
 ---
-<Article title={entry.data.title} date={entry.data.date} summary={entry.data.summary} lang="ko" kicker={`Research · ${entry.data.kind}`} alternate={alt ? hrefFor('research', alt) : undefined}>
+<Article title={entry.data.title} date={entry.data.date} summary={entry.data.summary} lang="ko" kicker={`Research · ${entry.data.kind} · ${entry.data.stage}`} alternate={alt ? hrefFor('research', alt) : undefined}>
+  {entry.data.osf && <p class="meta"><a href={entry.data.osf}>사전등록 (OSF)</a></p>}
+  {entry.data.started && <p class="meta">수집 시작: {entry.data.started.toISOString().slice(0, 10)}</p>}
   {entry.data.link && <p class="meta"><a href={entry.data.link}>외부 기록 (OSF / 프리프린트)</a></p>}
   <Content />
 </Article>
