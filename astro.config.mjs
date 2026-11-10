@@ -3,8 +3,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  // 3주차에 euisukhan.com 커스텀 도메인으로 교체
-  site: 'https://euisukhan.github.io',
+  site: 'https://euisukhan.com',
   // base: '/repo-name', // only for a *project* Pages site (not <account>.github.io)
   i18n: {
     defaultLocale: 'ko',
